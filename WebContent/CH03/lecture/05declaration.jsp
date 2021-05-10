@@ -1,22 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%!
+//declaration
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>04expression.jsp</title>
+<title>05declaration.jsp</title>
 </head>
 <body>
 <p>scriptlet</p>
-<p>메소드 안에 작성되는 명령문(들)</p>
 <%
-String s= "java";
+//scriptlet
 %>
 
-<p>expression</p>
-<p>메소드 호출 코드의 파라미터 부분</p>
-<%= 99 %>
-
-
+<p>declaration 선언부</p>
+<%!
+//declaration2
+%>
 </body>
 </html>

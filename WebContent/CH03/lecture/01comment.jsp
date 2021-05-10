@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>01comment.jsp</title>
 <style>
 /* css 주석*/
 /* 비밀번호 7777 */
