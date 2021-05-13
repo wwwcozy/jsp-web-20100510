@@ -3,13 +3,6 @@
 
 <% request.setCharacterEncoding("utf-8"); %>
 
-<%
-String id = request.getParameter("memberId");
-if (id != null && id.equals("madvirus")) {
-	response.sendRedirect("index.jsp");
-} else {
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +13,13 @@ if (id != null && id.equals("madvirus")) {
 </head>
 <body>
 <div class="container">
-	<h1>잘못된 아이디입니다.</h1>
+	<h1> path 2 jsp</h1>
 </div>
 </body>
 </html>
 
-<%
-}
-%>
+
+
+
+
+
