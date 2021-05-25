@@ -1,9 +1,6 @@
-package CH17.textbook;
+package CH17.lecture;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class NowServlet
+ * Servlet implementation class Servlet06Post
  */
-//@WebServlet("/NowServlet")
-public class NowServlet extends HttpServlet {
+@WebServlet("/Servlet06Post")
+public class Servlet06Post extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NowServlet() {
+    public Servlet06Post() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,28 +26,24 @@ public class NowServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("text/html; charset=utf-8");
-		
-		
-		PrintWriter out=response.getWriter();
-		out.println("<html>");
-		out.println("<head><title>현재시간</title></head>");
-		out.println("<body>");
-		out.println("현재 시간은");
-		out.println(new Date());
-		out.println("입니다.");
-		out.println("</body></html>");
-
-			
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//한글 사용할거면 이 작업을 먼저 해줘야함
+		request.setCharacterEncoding("utf-8");
+		
+		System.out.println("servlet06 doPost method...");
+		
+		String name= request.getParameter("name");
+		String address = request.getParameter("address");
+		
+		System.out.println(name);
+		System.out.println(address);
 	}
 
 }
