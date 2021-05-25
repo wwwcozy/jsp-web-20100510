@@ -1,4 +1,5 @@
 <%@ tag body-content="empty" language="java" pageEncoding="UTF-8"%>
+<!-- tag 디렉티브 -->
 <%@ tag import="java.util.Calendar" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 

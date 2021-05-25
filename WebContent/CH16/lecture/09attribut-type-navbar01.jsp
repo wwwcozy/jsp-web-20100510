@@ -2,8 +2,8 @@
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="tf" tagdir="/WEB-INF/tags/CH16/textbook" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags/CH16/lecture" %>
+<%@ taglib prefix="tf" tagdir="/WEB-INF/tags/CH16/textbook" %>
 
 <% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
@@ -15,12 +15,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-<my:navbar>
-	body...
-</my:navbar>
-<div class="container">
+<%
+List<String> list = new ArrayList<>();
+list.add("Home");
+list.add("Menu1");
+list.add("Menu2");
+list.add("Menu3");
+pageContext.setAttribute("list", list);
+%>
 
-오늘은 <b><tf:now /></b> 입니다.
+<my:navbar01 menus="${list }" />
+
+
+<div class="container">
+	
 	
 </div>
 </body>
