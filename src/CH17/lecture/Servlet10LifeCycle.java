@@ -8,27 +8,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Servlet08Extension
+ * Servlet implementation class Servlet10LifeCycle
  */
-@WebServlet("*.ext")
-//매핑하고 싶을 땐 경로를 *.ext 형태로 작성할것.
-public class Servlet08Extension extends HttpServlet {
+@WebServlet("/Servlet10LifeCycle")
+public class Servlet10LifeCycle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Servlet08Extension() {
+    public Servlet10LifeCycle() {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
+    //doGet, doPost보다 먼저 실행해야 한다면 init 메소드를 오버라이딩해서 사용할 것.
+    @Override
+    public void init() throws ServletException {
+    	// TODO Auto-generated method stub
+    	super.init();
+    	System.out.println("doGet, doPost보다 먼저 실행되어야 하는 코드");
+    	System.out.println("한 번만 실행됨");
+    }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().print("servlet08 deGet....");
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

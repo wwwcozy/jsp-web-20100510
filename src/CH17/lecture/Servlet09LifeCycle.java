@@ -8,27 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Servlet08Extension
+ * Servlet implementation class Servlet09LifeCycle
  */
-@WebServlet("*.ext")
-//매핑하고 싶을 땐 경로를 *.ext 형태로 작성할것.
-public class Servlet08Extension extends HttpServlet {
+@WebServlet("/Servlet09LifeCycle")
+public class Servlet09LifeCycle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Servlet08Extension() {
+    public Servlet09LifeCycle() {
         super();
         // TODO Auto-generated constructor stub
+        System.out.println("servlet09 생성자 실행");
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().print("servlet08 deGet....");
+		response.getWriter().print("servlet09 doGet method....");
 	}
 
 	/**
