@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  * Servlet implementation class BoardWriterServlet
  */
@@ -48,6 +47,8 @@ public class BoardWriterServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//어플리케이션 영역에 리스트(보드) 어트리뷰트 셋이 존재해야 함
 		
+		request.setCharacterEncoding("utf-8");
+		
 		ServletContext application = request.getServletContext();
 		List<Board> list = (List<Board>) application.getAttribute("boards");
 		
@@ -60,7 +61,7 @@ public class BoardWriterServlet extends HttpServlet {
 		
 		list.add(board);
 		
-		response.sendRedirect(request.getContextPath()+"/sample/list");
+		response.sendRedirect(request.getContextPath()+"/sample1/list");
 		
 		
 	}
