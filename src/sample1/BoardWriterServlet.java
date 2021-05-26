@@ -1,0 +1,68 @@
+package sample1;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+/**
+ * Servlet implementation class BoardWriterServlet
+ */
+@WebServlet("/sample1/write")
+public class BoardWriterServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BoardWriterServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("board writer doGet..");
+		
+		String path = "/WEB-INF/sample1/boardForm.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+		dispatcher.forward(request, response);
+		
+//		PrintWriter out = response.getWriter();
+//		out.print("<form >");
+//		out.print("</form>");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//어플리케이션 영역에 리스트(보드) 어트리뷰트 셋이 존재해야 함
+		
+		ServletContext application = request.getServletContext();
+		List<Board> list = (List<Board>) application.getAttribute("boards");
+		
+		String title = request.getParameter("title");
+		String body = request.getParameter("body");
+		
+		Board board = new Board();
+		board.setTitle(title);
+		board.setBody(body);
+		
+		list.add(board);
+		
+		response.sendRedirect(request.getContextPath()+"/sample/list");
+		
+		
+	}
+
+}
