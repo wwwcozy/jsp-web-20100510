@@ -1,10 +1,6 @@
-package sample1;
+package CH19.lecture;
 
 import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class BoardListServlet
+ * Servlet implementation class Filter04Servlet
  */
-@WebServlet("/sample1/list")
-public class BoardListServlet extends HttpServlet {
+@WebServlet("/filter04")
+public class Filter04Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardListServlet() {
+    public Filter04Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +26,19 @@ public class BoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 1. 요청정보파악
+		// 2. 비즈니스로직(모델)처리
+		// 3. forward or redirect
 		
-		ServletContext application = request.getServletContext();
-		List<Board> list = (List<Board>) application.getAttribute("boards");
+		System.out.println("filter04 servlet....");
 		
-		request.setAttribute("list", list);
+		String name = request.getParameter("name");
+		String greeting = name + ", hello!!!!";
 		
-		// forward 관용구
-		String path = "/WEB-INF/sample1/boardList.jsp";
-		RequestDispatcher dispatcher =  request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
+		response.getWriter().print(greeting);
 		
-//		for (Board board : list) {
-//			out.print("<li>");
-//			out.print(board.getTitle());
-//			out.print("</li>");
-//		}
+		
+		
 	}
 
 	/**

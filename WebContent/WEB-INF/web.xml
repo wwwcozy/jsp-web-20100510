@@ -150,7 +150,7 @@
 	DBCPInit2
  </servlet-name>
  <servlet-class>
- 	CH17.textbook./DBCPInit2
+ 	CH17.textbook.DBCPInit2
  </servlet-class>
    	<init-param>
   		<param-name>jdbcdriver</param-name>
@@ -177,6 +177,38 @@
   	<load-on-startup>1</load-on-startup>
   </servlet>
   
+  
+ <filter>
+ 	<filter-name>filter02</filter-name>
+ 	<filter-class>CH19.lecture.Filter02</filter-class>
+ </filter>
+ 
+ <filter-mapping>
+ 	<filter-name>filter02</filter-name>
+ 	<url-pattern>/filter02</url-pattern>
+ </filter-mapping>
+ 
+  <filter>
+ 	<filter-name>filter0301</filter-name>
+ 	<filter-class>CH19.lecture.Filter0301</filter-class>
+ </filter>
+ 
+   <filter>
+ 	<filter-name>filter0302</filter-name>
+ 	<filter-class>CH19.lecture.Filter0302</filter-class>
+ </filter>
+ 
+ <filter-mapping>
+ 	<filter-name>filter0301</filter-name>
+ 	<url-pattern>/filter03</url-pattern>
+ </filter-mapping>
+ 
+ <filter-mapping>
+ 	<filter-name>filter0302</filter-name>
+ 	<url-pattern>/filter03</url-pattern>
+ </filter-mapping> 
+ 
+ 
 </web-app>
 
 
