@@ -2,6 +2,7 @@ package CH14;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JDBC01Servlet
+ * Servlet implementation class JDBC05Servlet
  */
-@WebServlet("/JDBC01Servlet")
-public class JDBC01Servlet extends HttpServlet {
+@WebServlet("/JDBC05Servlet")
+public class JDBC05Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JDBC01Servlet() {
+    public JDBC05Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +33,15 @@ public class JDBC01Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		executeJDBC();
-			
-		response.getWriter().print("<h1>jdbc01</h1>");
+		
+		response.getWriter().print("<h1>jdbc05</h1>");
 	}
 
 	private void executeJDBC() {
 		
-		String sql = "SELECT CustomerName FROM Customers WHERE CustomerID = 1";
-		
+		String sql = "SELECT DISTINCT City FROM Customers ORDER BY City";
+				
 		
 		String url = "jdbc:mysql://54.180.138.71/test"; //본인 ip
 		String user = "root";
@@ -65,10 +65,11 @@ public class JDBC01Servlet extends HttpServlet {
 			// 쿼리 실행, 결과(ResulSet) 리턴
 			rs = stmt.executeQuery(sql);
 			
-			// 결과 탐색
-			if (rs.next()) {
-			String name = rs.getString(1);
-			System.out.println(name);
+			// 결과 탐색 (여러번 실행할 때)
+			while (rs.next()) {
+				String city = rs.getString(1);
+			
+				System.out.println(city);
 			
 			}
 			
@@ -105,9 +106,8 @@ public class JDBC01Servlet extends HttpServlet {
 			}		
 			
 		}
-		
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

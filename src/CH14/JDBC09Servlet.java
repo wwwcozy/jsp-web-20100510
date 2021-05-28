@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JDBC01Servlet
+ * Servlet implementation class JDBC09Servlet
  */
-@WebServlet("/JDBC01Servlet")
-public class JDBC01Servlet extends HttpServlet {
+@WebServlet("/JDBC09Servlet")
+public class JDBC09Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JDBC01Servlet() {
+    public JDBC09Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,52 +32,50 @@ public class JDBC01Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String id = request.getParameter("id");
 		
-		executeJDBC();
-			
-		response.getWriter().print("<h1>jdbc01</h1>");
+		String name = executeJDBC(id);
+		request.setAttribute("name", name);
+		
+		String path = "/CH14/jdbc08.jsp";
+		request.getRequestDispatcher(path).forward(request, response);
 	}
+	
+	private String executeJDBC(String id) {
 
-	private void executeJDBC() {
+		String name = ""; // 리턴할 변수
 		
-		String sql = "SELECT CustomerName FROM Customers WHERE CustomerID = 1";
+		String sql = "SELECT CustomerName FROM Customers WHERE CustomerID = " + id;
 		
-		
-		String url = "jdbc:mysql://54.180.138.71/test"; //본인 ip
+		String url = "jdbc:mysql://54.180.138.71/test"; // 본인 ip
 		String user = "root";
 		String password = "wnddkdwjdqhcjfl1";
-		
+
 		Connection con = null;
 		Statement stmt = null;
 		ResultSet rs = null;
-		
-		
+
 		try {
 			// 클래스 로딩
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// 연결 (연결을 돕는 클래스 : 드라이버매니저)
+
+			// 연결
 			con = DriverManager.getConnection(url, user, password);
-			
+
 			// statement 생성
 			stmt = con.createStatement();
-			
-			// 쿼리 실행, 결과(ResulSet) 리턴
+
+			// 쿼리 실행, 결과(ResultSet) 리턴
 			rs = stmt.executeQuery(sql);
-			
+
 			// 결과 탐색
 			if (rs.next()) {
-			String name = rs.getString(1);
-			System.out.println(name);
-			
+				name = rs.getString(1);
 			}
-			
-			
-		
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-		
 			// 연결 닫기
 			if (rs != null) {
 				try {
@@ -87,6 +85,7 @@ public class JDBC01Servlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+
 			if (stmt != null) {
 				try {
 					stmt.close();
@@ -95,6 +94,7 @@ public class JDBC01Servlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
+
 			if (con != null) {
 				try {
 					con.close();
@@ -102,12 +102,13 @@ public class JDBC01Servlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			}		
-			
+			}
 		}
-		
+
+		return name;
+
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

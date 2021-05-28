@@ -14,16 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class JDBC01Servlet
+ * Servlet implementation class JDBC03Servlet
  */
-@WebServlet("/JDBC01Servlet")
-public class JDBC01Servlet extends HttpServlet {
+@WebServlet("/JDBC03Servlet")
+public class JDBC03Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JDBC01Servlet() {
+    public JDBC03Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,16 @@ public class JDBC01Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		executeJDBC();
-			
-		response.getWriter().print("<h1>jdbc01</h1>");
+		
+		response.getWriter().print("<h1>jdbc03</h1>");
 	}
 
 	private void executeJDBC() {
 		
-		String sql = "SELECT CustomerName FROM Customers WHERE CustomerID = 1";
+		String sql = "SELECT CustomerID, CustomerName, City"
+				+ " FROM Customers "
+				+ "WHERE CustomerID = 2";
 		
 		
 		String url = "jdbc:mysql://54.180.138.71/test"; //본인 ip
@@ -67,9 +68,14 @@ public class JDBC01Servlet extends HttpServlet {
 			
 			// 결과 탐색
 			if (rs.next()) {
-			String name = rs.getString(1);
-			System.out.println(name);
+			//int id = Integer.parseInt(rs.getString(1));
+			int id = rs.getInt(1);
+			String name = rs.getString(2);
+			String city = rs.getString(3);
 			
+			System.out.println(id);
+			System.out.println(name);
+			System.out.println(city);
 			}
 			
 			
@@ -105,9 +111,8 @@ public class JDBC01Servlet extends HttpServlet {
 			}		
 			
 		}
-		
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
