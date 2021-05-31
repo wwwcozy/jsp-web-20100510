@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,19 +16,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import CH14.bean.Customer;
-import CH14.bean.Employee;
+
 
 /**
- * Servlet implementation class JDBC11Servlet
+ * Servlet implementation class JDBC13Servlet
  */
-@WebServlet("/JDBC11Servlet")
-public class JDBC11Servlet extends HttpServlet {
+@WebServlet("/JDBC13Servlet")
+public class JDBC13Servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public JDBC11Servlet() {
+    public JDBC13Servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,23 +37,29 @@ public class JDBC11Servlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String employeeId = request.getParameter("eid");
+		String pageStr = request.getParameter("page");
+		int page = 1;
+		if (pageStr != null ) {
+			page = Integer.parseInt(pageStr);
+		}
 		
-		Employee employee = executeJDBC(employeeId);
-		request.setAttribute("emp", employee);
 		
-		String path = "/CH14/jdbc11.jsp";
+		List<Customer> list = executeJDBC(page);
+		
+		request.setAttribute("customers", list);
+		
+		String path = "/CH14/jdbc13.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
-	private Employee executeJDBC(String id) {
-		//리턴할 객체 (baen)
-		Employee emp = null;
+	private List<Customer> executeJDBC(int page) {
+
+		List<Customer> list = new ArrayList<>(); // 리턴할 객체
 		
-		
-		String sql = "SELECT EmployeeID, LastName, FirstName " + 
-				"FROM Employees " + 
-				"WHERE EmployeeID = " + id;
+		String sql = "SELECT CustomerID, CustomerName, City " + 
+				"FROM Customers "
+				+ "ORDER BY CustomerID "
+		+ "LIMIT " + ((page-1) * 5) + ", 5"; // 페이지 갯수 확인 필요 
 		
 		String url = "jdbc:mysql://54.180.138.71/test"; // 본인 ip
 		String user = "root";
@@ -75,14 +83,13 @@ public class JDBC11Servlet extends HttpServlet {
 			rs = stmt.executeQuery(sql);
 
 			// 결과 탐색
-			if (rs.next()) {
+			while (rs.next()) {
+				Customer customer = new Customer();
+				customer.setId(rs.getInt(1));
+				customer.setName(rs.getString(2));
+				customer.setCity(rs.getString(3));
 				
-				emp = new Employee();
-				emp.setId(rs.getInt(1));
-				emp.setLastName(rs.getString(2));
-				emp.setFirstName(rs.getString(3));
-				
-				
+				list.add(customer);
 			}
 
 		} catch (Exception e) {
@@ -117,7 +124,7 @@ public class JDBC11Servlet extends HttpServlet {
 			}
 		}
 
-		return emp;
+		return list;
 
 	}
 	/**

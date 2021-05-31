@@ -1,15 +1,22 @@
 package CH14.bean;
 
-public class Employee {
-	private int eid;
+public class Employee {//프로퍼티
+	private int id;
 	private String lastName;
 	private String firstName;
+	private String Notes;
 	
-	public int getEid() {
-		return eid;
+	public String getNotes() {
+		return Notes;
 	}
-	public void setEid(int eid) {
-		this.eid = eid;
+	public void setNotes(String notes) {
+		Notes = notes;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getLastName() {
 		return lastName;
