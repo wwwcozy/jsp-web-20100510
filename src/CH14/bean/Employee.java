@@ -6,6 +6,13 @@ public class Employee {//프로퍼티
 	private String firstName;
 	private String Notes;
 	
+	
+	
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", Notes=" + Notes + "]";
+	}
+	
 	public String getNotes() {
 		return Notes;
 	}

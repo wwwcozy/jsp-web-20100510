@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import CH14.bean.Customer;
+import CH14.dao.CustomersDAO;
 
 /**
  * Servlet implementation class JDBC16UpdateServlet
@@ -155,82 +156,12 @@ public class JDBC16UpdateServlet extends HttpServlet {
 		
 		
 
-		updateCustomer(customer);
+		CustomersDAO customersDAO = new CustomersDAO();
+		
+		customersDAO.updateCustomer(customer);
 		
 		doGet(request, response);
 	}
-	
-	private void updateCustomer(Customer customer) {
-		String sql = "UPDATE Customers "
-				+ "	  SET CustomerName = ?, "
-				+ "		  ContactName = ?, "
-				+ "		  Address = ?, "
-				+ "		  City = ?, "
-				+ "		  PostalCode = ?, "
-				+ "  	  Country = ? "
-				+ "	  WHERE CustomerID = ? ";	
-				
-		String url = "jdbc:mysql://54.180.138.71/test"; // 본인 ip
-		String user = "root";
-		String password = "wnddkdwjdqhcjfl1";
-
-		Connection con = null;
-		PreparedStatement stmt = null;
-
-		try {
-			// 클래스 로딩
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			// 연결
-			con = DriverManager.getConnection(url, user, password);
-
-			// preparedStatement 생성
-			stmt = con.prepareStatement(sql);
-			
-			// ? (파라미터)에 값 할당
-			stmt.setString(1, customer.getName());
-			stmt.setString(2, customer.getContactName());
-			stmt.setString(3, customer.getAddress());
-			stmt.setString(4, customer.getCity());
-			stmt.setString(5, customer.getPostalCode());
-			stmt.setString(6, customer.getCountry());
-			stmt.setInt(7, customer.getId());
-
-			
-			
-			
-			// 쿼리 실행, 결과(ResultSet) 리턴
-			int cnt = stmt.executeUpdate();
-
-			if (cnt == 1) {
-				System.out.println("수정 성공");
-			} else {
-				System.out.println("수정 실패");
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// 연결 닫기
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-
-	}
-
 }
+	
+	
