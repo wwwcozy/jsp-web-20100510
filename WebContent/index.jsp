@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1> 첫번째 jsp - jean </h1>
+	<h1> 첫번째 jsp - wwwcozy </h1>
 </body>
 </html>
