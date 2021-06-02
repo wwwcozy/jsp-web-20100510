@@ -16,8 +16,6 @@
       <li class="nav-item">
         <a class="nav-link" href="${pageContext.request.contextPath }/sample1/list">목록보기</a>
       </li>
-
-
-    </form>
+	</ul>
   </div>
-</nav>
+</nav>  
