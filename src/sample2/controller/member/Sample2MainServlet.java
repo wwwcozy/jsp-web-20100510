@@ -1,4 +1,4 @@
-package sample2.controller;
+package sample2.controller.member;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class Sample2MainServlet
  */
-@WebServlet("/sample2/main")
+@WebServlet("/sample2/member/main")
 public class Sample2MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -26,7 +26,7 @@ public class Sample2MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/WEB-INF/sample2/main.jsp";
+		String path = "/WEB-INF/sample2/member/main.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 

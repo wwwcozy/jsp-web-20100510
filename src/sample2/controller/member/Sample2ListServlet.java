@@ -1,4 +1,4 @@
-package sample2.controller;
+package sample2.controller.member;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +15,7 @@ import sample2.dao.MemberDao;
 /**
  * Servlet implementation class Sample2ListServlet
  */
-@WebServlet("/sample2/list") // 오타 주의!!
+@WebServlet("/sample2/member/list") // 오타 주의!!
 public class Sample2ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -42,7 +42,7 @@ public class Sample2ListServlet extends HttpServlet {
 		
 		// forward
 		
-		String path = "/WEB-INF/sample2/list.jsp";
+		String path = "/WEB-INF/sample2/member/list.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 

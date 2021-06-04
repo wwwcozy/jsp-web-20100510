@@ -1,4 +1,4 @@
-package sample2.controller;
+package sample2.controller.member;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -15,7 +15,7 @@ import sample2.dao.MemberDao;
 /**
  * Servlet implementation class Sample2SignUpServlet
  */
-@WebServlet("/sample2/signup")
+@WebServlet("/sample2/member/signup")
 public class Sample2SignUpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,7 +31,7 @@ public class Sample2SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = "/WEB-INF/sample2/signup.jsp";
+		String path = "/WEB-INF/sample2/member/signup.jsp";
 		request.getRequestDispatcher(path).forward(request, response);
 	}
 
@@ -39,17 +39,14 @@ public class Sample2SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8"); // 받는 값 인코딩
-		
-		
+		request.setCharacterEncoding("utf-8");
 		// request parameter 수집
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		String name = request.getParameter("name");
 		String birth = request.getParameter("birth");
 		
-		
-		// member bean 완성
+		// Member bean 완성
 		Member member = new Member();
 		member.setId(id);
 		member.setPassword(password);
@@ -60,16 +57,24 @@ public class Sample2SignUpServlet extends HttpServlet {
 		MemberDao dao = new MemberDao();
 		boolean ok = dao.insert(member);
 		
-		// forward 또는 redirect 
+		// forward or redirect
 		if (ok) {
-			String path = request.getContextPath() + "/sample2/main";
+			String path = request.getContextPath() + "/sample2/list";
 			response.sendRedirect(path);
 		} else {
-			String path = "WEB-INF/sample2/signup.jsp";
+			request.setAttribute("message", "가입 실패");
+			
+			String path = "/WEB-INF/sample2/member/signup.jsp";
 			request.getRequestDispatcher(path).forward(request, response);
 		}
-		
-		
 	}
 
 }
+
+
+
+
+
+
+
+
