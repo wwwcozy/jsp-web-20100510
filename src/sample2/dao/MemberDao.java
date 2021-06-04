@@ -11,6 +11,7 @@ import java.util.List;
 
 import sample2.bean.Member;
 
+//기본값 설정
 public class MemberDao {
 	private String url;
 	private String user;
@@ -27,7 +28,9 @@ public class MemberDao {
 			e.printStackTrace();
 		} //한 번만 해주면 됨 (생성자에 저장)
 	}
-
+// 여기까지
+	
+// 회원등록
 	public boolean insert(Member member) {
 		String sql = "INSERT INTO Member "
 				+ "(id, password, name, birth, inserted) "
@@ -75,6 +78,7 @@ public class MemberDao {
 		return false;
 	}
 
+//회원목록
 	public List<Member> list() {
 		List<Member> list = new ArrayList<>();
 		
@@ -105,7 +109,7 @@ public class MemberDao {
 		
 		return list;
 	}
-
+//회원 정보
 	public Member getMember(String id) {
 		String sql = "SELECT id, password, name, birth, inserted "
 				+ "FROM Member "
@@ -145,7 +149,7 @@ public class MemberDao {
 		
 		return null;
 	}
-	
+//회원정보 수정
 	public boolean update(Member member) {
 		String sql = "UPDATE Member "
 				+ "SET password = ?, "
@@ -193,7 +197,7 @@ public class MemberDao {
 		
 		return false;
 	}
-
+// 회원 탈퇴
 	public void remove(String id) {
 
 		String sql = "DELETE FROM Member WHERE id = ?";
@@ -211,4 +215,48 @@ public class MemberDao {
 		}
 	}
 	
+// 회원 아이디 중복여부
+	public boolean existsId(String id) {
+		String sql = "SELECT id FROM Member WHERE id = ?";
+		
+		ResultSet rs = null;
+		try (
+			Connection con = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+				) {
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return false;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

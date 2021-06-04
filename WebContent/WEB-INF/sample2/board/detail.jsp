@@ -12,26 +12,22 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <div class="container">
 <s2:navbar />
-
-	<h1>로그인</h1>
-	<form method="post" action="${pageContext.request.contextPath }/sample2/member/login">
-		id <br>
-		<input type="text" name="id"> <br>
+	제목 : <br>
+	<input type="text" value="${board.title }" readonly>
+	<br>
+	본문 : <br>
+	<textarea readonly>${board.body }</textarea>
+	<br>
+	작성자 : <br>
+	<input type="text" value="${board.memberIdHidden }" readonly>
+	<br>
+	작성시간 : <br>
+	<input type="text" value="${board.inserted }" readonly>
 		
-		pW <br>
-		<input type="password" name="password"> <br>
-		<input type="submit" value="로그인">
-	</form>
-	
-	
-	<c:if test="${not empty message }">
-		<div>
-			${message }
-		
-		</div>
-	</c:if>
 </div>
+
 </body>
 </html>

@@ -51,7 +51,7 @@ public class Sample2LoginServlet extends HttpServlet {
 		if (member != null && member.getPassword().equals(password)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userLogined", member); //로그인 됐을 경우,
-			String path = request.getContextPath() + "/sample2/main";
+			String path = request.getContextPath() + "/sample2/member/main";
 			response.sendRedirect(path);
 			
 			
