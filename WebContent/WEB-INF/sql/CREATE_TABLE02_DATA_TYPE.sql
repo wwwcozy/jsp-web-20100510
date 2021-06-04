@@ -100,4 +100,4 @@ CREATE TABLE Persons
 
 
 -- exercise4
-DROP TABLE Persons;
+DROP TABLEMember Persons;
