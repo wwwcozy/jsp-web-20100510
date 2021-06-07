@@ -27,13 +27,13 @@
 		<tbody>
 			<c:forEach items="${boards }" var="board" varStatus="status">
 				<tr>
-					<td>${board.id }</td>	
+					<td>${board.boardId }</td>	
 					<td>
-						<a href="<%= request.getContextPath() %>/sample2/board/detail?id=${board.id}">
+						<a href="<%= request.getContextPath() %>/sample2/board/detail?id=${board.boardId}">
 						${board.title }
 						</a>
 					</td>
-					<td>${board.memberIdHidden }</td>
+					<td>${board.memberName }</td>
 					<td>${board.timeAgo }</td>
 	
 				</tr>		

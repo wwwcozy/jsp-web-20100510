@@ -22,7 +22,7 @@
 	<textarea readonly>${board.body }</textarea>
 	<br>
 	작성자 : <br>
-	<input type="text" value="${board.memberIdHidden }" readonly>
+	<input type="text" value="${board.memberName }" readonly>
 	<br>
 	작성시간 : <br>
 	<input type="text" value="${board.inserted }" readonly>
