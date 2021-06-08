@@ -26,12 +26,15 @@
 	</form>
 	
 	
-	<c:if test="${not empty message }">
+<%-- 	<c:if test="${not empty message }">
 		<div>
 			${message }
 		
 		</div>
-	</c:if>
+	</c:if> --%>
+	
+<s2:message />	
+	
 </div>
 </body>
 </html>
