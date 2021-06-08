@@ -22,6 +22,7 @@ public class MemberDao {
 		this.user = "root";
 		this.password = "wnddkdwjdqhcjfl1";
 		
+		//jdbc드라이버 로딩 - 데이터 베이스 연결 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -40,7 +41,7 @@ public class MemberDao {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
-		try {
+		try {//익셉션이 발생할 수 있는 코드 작성, 익셉션 발생시 다음 코드 실행하지 않고, 캐치문으로 이동 
 			
 			con = DriverManager.getConnection(url, user, password);
 			pstmt = con.prepareStatement(sql);
@@ -59,16 +60,17 @@ public class MemberDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			//최종적으로 실행되는 코드 
 			if (pstmt != null) {
 				try {
-					pstmt.close();
+					pstmt.close();  // 사용한 시스템 자원 반납코드
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 			if (con != null) {
 				try {
-					con.close();
+					con.close(); // 사용한 시스템 자원 반납코드
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -86,12 +88,14 @@ public class MemberDao {
 				+ "FROM Member";
 		
 		try (
-				Connection con = DriverManager.getConnection(url, user, password);
-				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery(sql);
+				Connection con = DriverManager.getConnection(url, user, password); // 커넥션 연결
+				Statement stmt = con.createStatement(); // 쿼리 실행을 위한 stmt 객체 생성
+				ResultSet rs = stmt.executeQuery(sql); // 쿼리 실행
 					) {
 				
-				while (rs.next()) {
+				while (rs.next()) { //rs.next() : 다음 행이 존재하면 true 리턴, 다음행으로 커서이동 / 마지막행 이후 false 리턴
+					
+					// Member bean에 값 저장 (rs.데이터읽기메소드)
 					Member member = new Member();
 					member.setId(rs.getString(1));
 					member.setPassword(rs.getString(2));
@@ -113,14 +117,14 @@ public class MemberDao {
 	public Member getMember(String id) {
 		String sql = "SELECT id, password, name, birth, inserted "
 				+ "FROM Member "
-				+ "WHERE id = ?";
+				+ "WHERE id = ?"; //pstmt라, 값은 ?로 임의 지정 나중에 값에 대한 내용 추가
 		
 		ResultSet rs = null;
 		try (
 			Connection con = DriverManager.getConnection(url, user, password);
-			PreparedStatement pstmt = con.prepareStatement(sql);
+			PreparedStatement pstmt = con.prepareStatement(sql); //stmt와 동일한 기능, 쿼리 틀 먼저 생성, 값 나중에 지정 
 				) {
-			pstmt.setString(1, id);
+			pstmt.setString(1, id); // 값 지정 (순서, 값)
 			
 			rs = pstmt.executeQuery();
 			
