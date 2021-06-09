@@ -242,4 +242,41 @@ public class BoardDao {
 		return false;
 	}
 	
+	public boolean remove(int id) {
+		String sql = "DELETE FROM Board WHERE id = ?";
+		
+		try (
+			Connection con = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = con.prepareStatement(sql);
+				) {
+			
+			pstmt.setInt(1, id);
+			int cnt = pstmt.executeUpdate();
+			
+			//쿼리가 영향을 미친 레코드 갯수 : 갯수 지정의 목적 1개이면 리턴, 0개이면 false로 리턴
+			return cnt == 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	public void removeByMember(String id, Connection con) {
+		String sql = "DELETE FROM Board WHERE memberId = ?";
+
+		try (
+			PreparedStatement pstmt = con.prepareStatement(sql);	
+				) {
+
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }

@@ -14,9 +14,7 @@
 <body>
 
 <div class="container">
-<s2:navbar />
-	
-	<table class="table"> 
+	<table class="table">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -30,21 +28,17 @@
 		<tbody>
 			<c:forEach items="${members }" var="member" varStatus="status">
 				<tr>
-					<td>${status.count }</td>	
+					<td>${status.count }</td>
 					<td>${member.id }</td>
 					<td>${member.password }</td>
 					<td>${member.name }</td>
-					<td>${member.birth }</td>										
-					<td>${member.inserted }</td>	
-				</tr>		
-			</c:forEach>
+					<td>${member.birth }</td>
+					<td>${member.inserted }</td>
+				</tr>
+			</c:forEach>		
 		</tbody>
-	
-	
-	
 	</table>
-	
-	
 </div>
+<s2:message></s2:message>
 </body>
 </html>

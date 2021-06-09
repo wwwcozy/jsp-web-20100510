@@ -202,12 +202,12 @@ public class MemberDao {
 		return false;
 	}
 // 회원 탈퇴
-	public void remove(String id) {
+	public void remove(String id, Connection con) {
 
 		String sql = "DELETE FROM Member WHERE id = ?";
 		
 		try (
-			Connection con = DriverManager.getConnection(url, user, password);
+			
 			PreparedStatement pstmt = con.prepareStatement(sql);
 				) {
 			

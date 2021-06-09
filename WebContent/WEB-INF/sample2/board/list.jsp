@@ -13,9 +13,9 @@
 </head>
 <body>
 <div class="container">
-<s2:navbar />
-	
-	<table class="table"> 
+	<h1>글 목록</h1>
+	<s2:message></s2:message>
+	<table class="table">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -24,23 +24,23 @@
 				<th>작성시간</th>
 			</tr>
 		</thead>
+	
 		<tbody>
-			<c:forEach items="${boards }" var="board" varStatus="status">
+			<c:forEach items="${boards }" var="board">
 				<tr>
-					<td>${board.boardId }</td>	
+					<td>${board.boardId }</td>
 					<td>
 						<a href="<%= request.getContextPath() %>/sample2/board/detail?id=${board.boardId}">
-						${board.title }
+							${board.title }
 						</a>
 					</td>
 					<td>${board.memberName }</td>
 					<td>${board.timeAgo }</td>
-	
-				</tr>		
+				</tr>
 			</c:forEach>
 		</tbody>
-	
-	</table>	
+	</table>
 </div>
+
 </body>
 </html>

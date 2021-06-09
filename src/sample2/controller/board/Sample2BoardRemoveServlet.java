@@ -1,4 +1,4 @@
-package sample2.controller.member;
+package sample2.controller.board;
 
 import java.io.IOException;
 
@@ -7,37 +7,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import sample2.bean.Member;
-import sample2.service.member.MemberRemoveService;
-
+import sample2.dao.BoardDao;
 
 /**
- * Servlet implementation class Sample2RemoveServlet
+ * Servlet implementation class Sample2BoardRemove
  */
-@WebServlet("/sample2/member/remove")
-public class Sample2RemoveServlet extends HttpServlet {
+@WebServlet("/sample2/board/remove")
+public class Sample2BoardRemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	//필드로 선언
-	private MemberRemoveService service = null;
-	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Sample2RemoveServlet() {
+    public Sample2BoardRemoveServlet() {
         super();
         // TODO Auto-generated constructor stub
-    }
-    
-    @Override
-    public void init() throws ServletException {
-    	// TODO Auto-generated method stub
-    	super.init();
-    	
-    	service = new MemberRemoveService();
-		
     }
 
 	/**
@@ -52,19 +37,28 @@ public class Sample2RemoveServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Member member = (Member) session.getAttribute("userLogined");
+		// form에서 "boardId"란 name 파라미터? 프로퍼티?의 값을 불러오기
+		String boardId = request.getParameter("boardId");
 		
-		this.service.remove(member.getId()); // 서비스한테 일시키기
-		
-		
-		session.invalidate();
-		
-		String path = request.getContextPath() + "/sample2/member/main";
-		response.sendRedirect(path);
+		BoardDao dao = new BoardDao();
+		boolean ok = dao.remove(Integer.parseInt(boardId));
+	
+		// forward or redirect
+		if (ok) {
+			request.getSession().setAttribute("message", "게시물이 삭제되었습니다.");
+			
+			String path = request.getContextPath() + "/sample2/board/list";
+			response.sendRedirect(path);
+		} else {
+			request.getSession().setAttribute("message", "게시물이 삭제되지 않았습니다.");
+					
+			String path = request.getContextPath() + "/sample2/board/detail?id=" + boardId;
+			response.sendRedirect(path);
+		}
 	}
 
 }
+
 
 
 
