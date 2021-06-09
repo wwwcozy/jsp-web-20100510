@@ -11,8 +11,11 @@
 
 <title>Insert title here</title>
 </head>
+
 <body>
+<s2:navbar/>
 <div class="container">
+
 	<h1>글 목록</h1>
 	<s2:message></s2:message>
 	<table class="table">

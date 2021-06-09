@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<s2:navbar/>
 <div class="container">
 	<h1>글 작성</h1>
 	<form action="${pageContext.request.contextPath }/sample2/board/write" method="post">
