@@ -57,7 +57,7 @@ public class BoardDao {
 		
 		return false;
 	}
-
+	//사용x
 	public List<Board> list() {
 		List<Board> list = new ArrayList<>();
 		
@@ -89,7 +89,7 @@ public class BoardDao {
 		return list;
 	}
 	
-	
+	//사용x
 	public List<BoardDto> list2() {
 		List<BoardDto> list = new ArrayList<>();
 		
@@ -124,6 +124,48 @@ public class BoardDao {
 		
 		
 		return list;
+	}
+	
+	
+	public List<BoardDto> list3() {
+		List<BoardDto> list = new ArrayList<>();
+			
+			String sql = "SELECT b.id boardId, "
+					+ "			 b.title title, "
+					+ "			 m.name name, "
+					+ "			 count(c.id) numberOfComment, "
+					+ "			 b.inserted "
+					+ "FROM Board b "
+					+ "JOIN Member m "
+					+ "ON b.memberId = m.id "
+					+ "LEFT JOIN Comment "
+					+ "ON b.id = c.boardId "
+					+ "GROUP BY b.id "
+					+ "ORDER BY boardId DESC";
+			
+			try (
+				Connection con = DriverManager.getConnection(url, user, password);
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+						) {
+					
+				while (rs.next()) {
+					BoardDto board = new BoardDto();
+					board.setBoardId(rs.getInt(1)); // 타입 신경쓰기!
+					board.setTitle(rs.getString(2));
+					board.setMemberName(rs.getString(3));
+					board.setNumberOfComment(rs.getInt(4));
+					board.setInserted(rs.getTimestamp(5));
+						
+					list.add(board);
+					}
+					
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			return list;
 	}
 
 // 게시판 글 상세페이지로 들어가기
@@ -278,5 +320,7 @@ public class BoardDao {
 		}
 
 	}
+
+	
 	
 }
