@@ -113,7 +113,7 @@ public class MemberDao {
 		
 		return list;
 	}
-//회원 정보
+//회원 정보 : 사용X
 	public Member getMember(String id) {
 		String sql = "SELECT id, password, name, birth, inserted "
 				+ "FROM Member "
@@ -153,6 +153,57 @@ public class MemberDao {
 		
 		return null;
 	}
+	//회원 정보 : 사용O	
+	public Member getMember2(String id) {
+		String sql = "SELECT m.id,"
+				+ "          m.password,"
+				+ "          m.name,"
+				+ "          m.birth,"
+				+ "          m.inserted,"
+				+ "          count(DISTINCT b.id) numberOfBoard,"
+				+ "          count(DISTINCT c.id) numberOfComment "
+				+ "FROM Member m LEFT JOIN Board b ON m.id = b.memberId "
+				+ "     LEFT JOIN Comment c ON m.id = c.memberId "
+				+ "WHERE m.id = ?"; //pstmt라, 값은 ?로 임의 지정 나중에 값에 대한 내용 추가
+		
+		ResultSet rs = null;
+		try (
+			Connection con = DriverManager.getConnection(url, user, password);
+			PreparedStatement pstmt = con.prepareStatement(sql); //stmt와 동일한 기능, 쿼리 틀 먼저 생성, 값 나중에 지정 
+				) {
+			pstmt.setString(1, id); // 값 지정 (순서, 값)
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				Member member = new Member();
+				member.setId(rs.getString(1));
+				member.setPassword(rs.getString(2));
+				member.setName(rs.getString(3));
+				member.setBirth(rs.getDate(4));
+				member.setNumberOfBoard(rs.getInt(6));
+				member.setNumberOfComment(rs.getInt(7));
+				
+				return member;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	
 //회원정보 수정
 	public boolean update(Member member) {
 		String sql = "UPDATE Member "
@@ -249,6 +300,8 @@ public class MemberDao {
 		
 		return false;
 	}
+
+
 	
 }
 
