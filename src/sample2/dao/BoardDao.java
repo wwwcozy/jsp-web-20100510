@@ -138,7 +138,7 @@ public class BoardDao {
 					+ "FROM Board b "
 					+ "JOIN Member m "
 					+ "ON b.memberId = m.id "
-					+ "LEFT JOIN Comment "
+					+ "LEFT JOIN Comment c "
 					+ "ON b.id = c.boardId "
 					+ "GROUP BY b.id "
 					+ "ORDER BY boardId DESC";
@@ -320,6 +320,7 @@ public class BoardDao {
 		}
 
 	}
+
 
 	
 	
