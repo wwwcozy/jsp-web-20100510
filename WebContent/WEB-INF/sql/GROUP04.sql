@@ -32,5 +32,5 @@ FROM Member m LEFT JOIN Board b ON m.id = b.memberId
 LEFT JOIN Comment c ON m.id = c.memberId
 WHERE m.id = 'sjk';
 
-SELECT * FROM Board WHERE memberId= 'jean';
-SELECT * FROM Comment WHERE memberId= 'jean';
+SELECT * FROM Board WHERE memberId= 'sjk';
+SELECT * FROM Comment WHERE memberId= 'sjk';

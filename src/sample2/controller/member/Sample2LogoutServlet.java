@@ -30,7 +30,11 @@ public class Sample2LogoutServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();
-	
+		
+		//로그아웃 알림 메세지
+		session = request.getSession();
+		session.setAttribute("message", "로그아웃되었습니다.");
+		
 		String path = request.getContextPath() + "/sample2/member/main";
 		response.sendRedirect(path);
 	}

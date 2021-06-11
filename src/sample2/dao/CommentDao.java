@@ -109,7 +109,30 @@ public class CommentDao {
 		
 		
 	}
-	
+	// 댓글 갯수 가져오는 메소드 
+	public int getNumberOfComment(String id, Connection con) {
+		String sql = "SELECT COUNT(*) FROM Comment WHERE memberId = ? ";
+				
+				ResultSet rs = null;
+				try (
+					PreparedStatement pstmt = con.prepareStatement(sql);
+						) {
+					pstmt.setString(1, id);
+					rs = pstmt.executeQuery();
+					
+					if (rs.next()) {
+						return rs.getInt(1);
+					}
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					DBConnection.close(rs);
+				}
+				
+				return 0;
+			}
+		
 }
 
 

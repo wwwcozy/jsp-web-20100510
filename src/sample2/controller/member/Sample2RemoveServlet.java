@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import sample2.bean.Member;
-import sample2.service.member.MemberRemoveService;
+import sample2.service.member.MemberService;
 
 
 /**
@@ -21,7 +21,7 @@ public class Sample2RemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	//필드로 선언
-	private MemberRemoveService service = null;
+	private MemberService service = null;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -36,7 +36,7 @@ public class Sample2RemoveServlet extends HttpServlet {
     	// TODO Auto-generated method stub
     	super.init();
     	
-    	service = new MemberRemoveService();
+    	service = new MemberService();
 		
     }
 
@@ -59,6 +59,10 @@ public class Sample2RemoveServlet extends HttpServlet {
 		
 		
 		session.invalidate();
+		
+		//로그아웃 알림 메세지
+				session = request.getSession();
+				session.setAttribute("message", "회원탈퇴되었습니다. 안녕히 가세요.");
 		
 		String path = request.getContextPath() + "/sample2/member/main";
 		response.sendRedirect(path);

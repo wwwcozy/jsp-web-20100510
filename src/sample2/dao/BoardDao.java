@@ -11,6 +11,7 @@ import java.util.List;
 
 import sample2.bean.Board;
 import sample2.bean.BoardDto;
+import sample2.util.DBConnection;
 
 public class BoardDao {
 	
@@ -304,22 +305,73 @@ public class BoardDao {
 		
 		return false;
 	}
-
+	
+	
 	public void removeByMember(String id, Connection con) {
 		String sql = "DELETE FROM Board WHERE memberId = ?";
-
+		
 		try (
 			PreparedStatement pstmt = con.prepareStatement(sql);	
 				) {
-
+			
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
 	}
+	
+
+	// 게시판 갯수 가져오는 메소드 (쿼리만 살짝 달라짐) 
+	public int getNumberOfBoard(String id, Connection con) {
+		String sql = "SELECT COUNT(*) FROM Board WHERE memberId = ? ";
+		
+		ResultSet rs = null;
+		try (
+			PreparedStatement pstmt = con.prepareStatement(sql);
+				) {
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs);
+		}
+		
+		return 0;
+	}
+
+	
+	public int countAll() {
+		String sql = "SELECT COUNT(*) FROM Board";
+		
+		ResultSet rs = null;
+		
+		try (
+			Connection con = DBConnection.getConnection();
+			Statement stmt = con.createStatement();
+				) {
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				return rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBConnection.close(rs);
+		}
+		
+		return 0;
+	}
+
+
 
 
 	

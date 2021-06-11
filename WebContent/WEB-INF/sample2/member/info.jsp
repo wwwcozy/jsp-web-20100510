@@ -30,6 +30,8 @@
 				$("#form2").submit();
 			}
 		});
+		
+		
 	});
 </script>
 
@@ -37,33 +39,103 @@
 <body>
 <s2:navbar></s2:navbar>
 <div class="container">
+	
+	<div class="row justify-content-center">
+	<div class="col-6">
+		<s2:message />
+		<h1 align="center">회원정보</h1>
+		
 	<form id="form1" action="${pageContext.request.contextPath }/sample2/member/modify" method="post">
-		id : <br>
-		<input id="input1" type="text" name="id" value="${member.id }" readonly> <br>
-		pw : <br>
-		<input id="input2" type="password" name="password" value="${member.password }" readonly> <br>
-		name : <br>	
-		<input id="input3" type="text" name="name" value="${member.name }" readonly> <br>
-		birth day: <br>
-		<input id="input4" type="date" name="birth" value="${member.birth }" readonly> <br>
-		<button id="button1" type="button" >수정</button>
-		<input type="submit" id="submit1" value="전송" hidden>
+
+		
+		<div class="form-group">
+			<label for="input1">아이디</label>
+			<input class="form-control" type="text" name="id" id="input1" value="${member.id }" readonly>
+		</div>
+	
+		<div class="form-group">
+			<label for="input2">패스워드</label>
+			<input class="form-control" type="password" name="password" id="input2" value="${member.password}" readonly>
+		</div>
+		
+		<div class="form-group">
+			<label for="input3">이름</label>
+			<input class="form-control" type="text" name="name" id="input3" value="${member.name}" readonly>
+		</div>
+		
+		<div class="form-group">
+			<label for="input4">생년월일</label>
+			<input class="form-control" type="date" name="birth" id="input4" value="${member.birth}" readonly>
+		</div>
+
+		<hr class="my-4">
+		
+		<div class="form-group">
+			<label>작성한 게시물</label>
+			<input class="form-control" type="text" value="${member.numberOfBoard}개" readonly>
+		</div>
+		
+		<div class="form-group">
+			<label>작성한 댓글</label>
+			<input class="form-control" type="text" value="${member.numberOfComment}개" readonly>
+		</div>
+		
+		<hr class="my-4">
+		
+		<button id="button1" type="button" class="btn btn-dark" >회원정보 수정</button>
+		<input type="submit" id="submit1" value="전송"  class="btn btn-dark" hidden>
 	</form>
 	
-<s2:message />
+	
+		</div>
+	</div>	
+
 </div>
 
-<div>
+<br>
+<div class="container">
+<div class="row justify-content-center">
+	<div class="col-6">
+	<form id="form2" action="${pageContext.request.contextPath}/sample2/member/remove" method="post">
+		<input id="submit2" type="submit" value="회원탈퇴" class="btn btn-light">
+	</form>
+	</div>
+	</div>
+</div>
+
+
+
+<%-- 
+	<form id="form1" action="${pageContext.request.contextPath }/sample2/member/modify" method="post">
+		아이디 <br>
+		<input id="input1" type="text" name="id" value="${member.id }" readonly> <br>
+		패스워드 <br>
+		<input id="input2" type="password" name="password" value="${member.password }" readonly> <br>
+		이름 <br>	
+		<input id="input3" type="text" name="name" value="${member.name }" readonly> <br>
+		생년월일 <br>
+		<input id="input4" type="date" name="birth" value="${member.birth }" readonly> <br>
+		<hr class="my-4">
+		작성한 게시물<br>
+		<input type="text" value="${member.numberOfBoard }개" readonly> <br>
+		작성한 댓글<br>
+		<input type="text" value="${member.numberOfComment }개" readonly> <br>
+		<hr class="my-4">
+		
+		<button id="button1" type="button" class="btn btn-dark" >회원정보 수정</button>
+		<input type="submit" id="submit1" value="전송" hidden class="btn btn-dark">
+	</form>
+
+ --%>
+
+<%-- 
+<div class="container">
 작성한 게시물 : <span>${member.numberOfBoard }</span>개
 <br>
 작성한 댓글 : <span>${member.numberOfComment }</span>개
 </div>
+ --%>
 
-<div class="container">
-	<form id="form2" action="${pageContext.request.contextPath}/sample2/member/remove" method="post">
-		<input id="submit2" type="submit" value="탈퇴">
-	</form>
-</div>
 </body>
 </html>
 

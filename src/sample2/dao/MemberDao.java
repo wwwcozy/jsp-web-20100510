@@ -153,7 +153,7 @@ public class MemberDao {
 		
 		return null;
 	}
-	//회원 정보 : 사용O	
+	//회원 정보 : 사용X - 게시물, 댓글 갯수 한 번에 가져올 때 사용하는 메소드
 	public Member getMember2(String id) {
 		String sql = "SELECT m.id,"
 				+ "          m.password,"
@@ -299,6 +299,47 @@ public class MemberDao {
 		}
 		
 		return false;
+	}
+
+	
+	// 회원정보 : 사용O - 게시물, 댓글 갯수 각각 가져올 때 사용하는 메소드
+	public Member getMember(String id, Connection con) {
+		String sql = "SELECT id, password, name, birth, inserted "
+				+ "FROM Member "
+				+ "WHERE id = ?"; //pstmt라, 값은 ?로 임의 지정 나중에 값에 대한 내용 추가
+		
+		ResultSet rs = null;
+		try ( //커넥션 삭제처리함, 서비스에서 제공
+			PreparedStatement pstmt = con.prepareStatement(sql); //stmt와 동일한 기능, 쿼리 틀 먼저 생성, 값 나중에 지정 
+				) {
+			pstmt.setString(1, id); // 값 지정 (순서, 값)
+			
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				Member member = new Member();
+				member.setId(rs.getString(1));
+				member.setPassword(rs.getString(2));
+				member.setName(rs.getString(3));
+				member.setBirth(rs.getDate(4));
+				member.setInserted(rs.getTimestamp(5));
+				
+				return member;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return null;
 	}
 
 

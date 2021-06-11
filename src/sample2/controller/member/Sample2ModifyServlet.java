@@ -55,6 +55,8 @@ public class Sample2ModifyServlet extends HttpServlet {
 		MemberDao dao = new MemberDao();
 		boolean ok = dao.update(member);
 		
+	
+
 		String message = "";
 		if (ok) {
 			message = "변경 완료";

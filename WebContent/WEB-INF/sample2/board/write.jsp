@@ -13,7 +13,32 @@
 </head>
 <body>
 <s2:navbar/>
+
 <div class="container">
+	
+	<div class="row justify-content-center">
+	<div class="col-6">
+	<div class="jumbotron">
+		<h1>게시글 작성</h1>
+		<form action="${pageContext.request.contextPath }/sample2/board/write" method="post" >
+			
+			<div class="form-group">
+				<label for="input1">제목</label>
+				<input class="form-control" type="text" id="input1" name="title">
+			</div>
+			<div class="form-group">
+				<label for="textarea1" >본문</label>
+				<textarea rows="10" class="form-control" name="body" id="textarea1"></textarea>
+			</div>
+			
+			<button class="btn btn-dark" type="submit"><i class="fas fa-pen"></i>작성</button>
+		</form>
+		</div>
+	  </div>
+	</div>
+</div>
+
+<%-- <div class="container">
 	<h1>글 작성</h1>
 	<form action="${pageContext.request.contextPath }/sample2/board/write" method="post">
 		제목 : <br>
@@ -22,6 +47,6 @@
 		<textarea name="body" id="textarea1"></textarea> <br>
 		<input type="submit" value="작성" >	
 	</form>
-</div>
+</div> --%>
 </body>
 </html>
